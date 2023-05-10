@@ -5,6 +5,7 @@ export default function App(props) {
   const [number, setNumber] = useState("");
   const [rightNumber, setRightNumber]  = useState(Math.floor(Math.random() * 100));
   const [isRight, setIsRight] = useState(false);
+  let status;
 
   console.log("right", rightNumber)
 
@@ -15,14 +16,18 @@ export default function App(props) {
 
   console.log(isRight);
   if (number == rightNumber && isRight===false ) {
-    setIsRight(true);
+    status ="You got it correct!"
     console.log(isRight);
+  } else if (number > rightNumber) {
+    status ="too high!"
+  } else if (number < rightNumber) {
+    status="too low!"
   }
 
   return (
     <>
     <div className='App'>
-      <h1>{isRight ? "You won!" : "Not there yet"}</h1>
+      <h3>{status}</h3>
       <label> Guess a number: </label>
       <input onChange={handleChange} value={number}></input> 
     </div>
