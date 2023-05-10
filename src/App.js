@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+
+export default function App(props) {
+  const [number, setNumber] = useState("");
+  const [rightNumber, setRightNumber]  = useState(Math.floor(Math.random() * 100));
+  const [isRight, setIsRight] = useState(false);
+
+  console.log("right", rightNumber)
+
+  const handleChange = event => {
+    setNumber(event.target.value)
+  }
+  console.log("guess", number);
+
+  console.log(isRight);
+  if (number == rightNumber && isRight===false ) {
+    setIsRight(true);
+    console.log(isRight);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <div className='App'>
+      <h1>{isRight ? "You won!" : "Not there yet"}</h1>
+      <label> Guess a number: </label>
+      <input onChange={handleChange} value={number}></input> 
     </div>
+    </>
   );
 }
 
-export default App;
+// Log to console
+console.log('Hello console')
