@@ -7,7 +7,7 @@ class App extends React.Component {
       number: "",
       rightNumber: Math.floor(Math.random() * 100),
       isRight: false,
-      status: "You haven't guessed yet :D",
+      status: "Guess a number between 0-100",
       history: [],
     };
   }
@@ -43,9 +43,10 @@ class App extends React.Component {
       return (
         <>
           <div className="App">
+            <h1 class="header">guess the number</h1>
             <h3>The correct number was: {this.state.rightNumber}</h3>
             <h3>{this.state.status}</h3>
-            <label> Guess a number: </label>
+            {/* <label> Guess a number between 0-100: </label> */}
             <input
               disabled
               type="text"
@@ -67,24 +68,29 @@ class App extends React.Component {
     } else {
       return (
         <>
-          {console.log("history in render", this.state.history)}
+          <h1 class="header"> guess the number</h1>
           <div className="App">
-            <h3>{this.state.status}</h3>
-            <label> Guess a number: </label>
-            <input
-              min="1"
-              max="100"
-              type="text"
-              onInput={this.handleChange}
-              value={this.state.number}
-            ></input>
-            <button onClick={this.handleGuess}>Guess!</button>
-            <p>History:</p>
-            {this.state.history.map((g, i) => (
-              <p>
-                Guess #{i + 1}: {g}
-              </p>
-            ))}
+            <div className="Game">
+              {/* <h1 class="header">guess the number</h1> */}
+              <h3>{this.state.status}</h3>
+              {/* <label> Guess a number between 0-100: </label> */}
+              <input
+                min="1"
+                max="100"
+                type="text"
+                onInput={this.handleChange}
+                value={this.state.number}
+              ></input>
+              <button onClick={this.handleGuess}>Guess!</button>
+            </div>
+            <div className="History">
+              <p>History:</p>
+              {this.state.history.map((g, i) => (
+                <p>
+                  Guess {i + 1}: {g}
+                </p>
+              ))}
+            </div>
           </div>
         </>
       );
@@ -93,5 +99,3 @@ class App extends React.Component {
 }
 
 export default App;
-// Log to console
-console.log("Hello console");
