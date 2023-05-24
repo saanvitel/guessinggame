@@ -1,39 +1,5 @@
 import React, { useState } from "react";
 
-// export default function App(props) {
-//   const [number, setNumber] = useState("");
-//   const [rightNumber, setRightNumber]  = useState(Math.floor(Math.random() * 100));
-//   const [isRight, setIsRight] = useState(false);
-//   let status;
-
-//   console.log("right", rightNumber)
-
-//   const handleChange = event => {
-//     setNumber(event.target.value)
-//   }
-//   console.log("guess", number);
-
-//   console.log(isRight);
-//   if (number == rightNumber && isRight===false ) {
-//     status ="You got it correct!"
-//     console.log(isRight);
-//   } else if (number > rightNumber) {
-//     status ="too high!"
-//   } else if (number < rightNumber) {
-//     status="too low!"
-//   }
-
-//   return (
-//     <>
-//     <div className='App'>
-//       <h3>{status}</h3>
-//       <label> Guess a number: </label>
-//       <input onChange={handleChange} value={number}></input>
-//     </div>
-//     </>
-//   );
-// }
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -41,36 +7,88 @@ class App extends React.Component {
       number: "",
       rightNumber: Math.floor(Math.random() * 100),
       isRight: false,
+      status: "You haven't guessed yet :D",
+      history: [],
     };
   }
 
   handleChange = (event) => {
     this.setState({ number: event.target.value });
+    console.log("history in handle change", this.state.history);
   };
 
-  render() {
-    let status;
+  handleGuess = () => {
+    let feedback;
     if (
       this.state.number == this.state.rightNumber &&
       this.state.isRight === false
     ) {
-      status = "You got it correct!";
+      feedback = "You got it correct!";
       console.log(this.state.isRight);
     } else if (this.state.number > this.state.rightNumber) {
-      status = "too high!";
+      feedback = "too high!";
     } else if (this.state.number < this.state.rightNumber) {
-      status = "too low!";
+      feedback = "too low!";
     }
+    this.setState({ status: feedback });
+    this.setState({ history: [...this.state.history, this.state.number] });
+    console.log("history", this.state.history);
+  };
 
-    return (
-      <>
-        <div className="App">
-          <h3>{status}</h3>
-          <label> Guess a number: </label>
-          <input onChange={this.handleChange} value={this.state.number}></input>
-        </div>
-      </>
-    );
+  render() {
+    if (
+      this.state.history.length === 7 ||
+      this.state.status === "You got it correct!"
+    ) {
+      return (
+        <>
+          <div className="App">
+            <h3>The correct number was: {this.state.rightNumber}</h3>
+            <h3>{this.state.status}</h3>
+            <label> Guess a number: </label>
+            <input
+              disabled
+              type="text"
+              onInput={this.handleChange}
+              value={this.state.number}
+            ></input>
+            <button disabled onClick={this.handleGuess}>
+              Guess!
+            </button>
+            <p>History:</p>
+            {this.state.history.map((g, i) => (
+              <p>
+                Guess #{i + 1}: {g}
+              </p>
+            ))}
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <>
+          {console.log("history in render", this.state.history)}
+          <div className="App">
+            <h3>{this.state.status}</h3>
+            <label> Guess a number: </label>
+            <input
+              min="1"
+              max="100"
+              type="text"
+              onInput={this.handleChange}
+              value={this.state.number}
+            ></input>
+            <button onClick={this.handleGuess}>Guess!</button>
+            <p>History:</p>
+            {this.state.history.map((g, i) => (
+              <p>
+                Guess #{i + 1}: {g}
+              </p>
+            ))}
+          </div>
+        </>
+      );
+    }
   }
 }
 
