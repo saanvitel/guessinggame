@@ -14,7 +14,7 @@ body {
   flex-direction: row;
   width: 100vw;
   height: 100vh;
-  gap: 300px;
+  gap: 180px;
 }
 
 .Game {
@@ -27,6 +27,11 @@ body {
 .History {
   display: flex;
   flex-direction: column;
+  border: 1px black solid;
+  padding: 20px;
+  width: 250px;
+  border-radius: 20px;
+  background: #d5e5ff;
 }
 
 h1.header {

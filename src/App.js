@@ -31,7 +31,9 @@ class App extends React.Component {
       feedback = "too low!";
     }
     this.setState({ status: feedback });
-    this.setState({ history: [...this.state.history, this.state.number] });
+    this.setState({
+      history: [...this.state.history, this.state.number],
+    });
     console.log("history", this.state.history);
   };
 
@@ -42,26 +44,30 @@ class App extends React.Component {
     ) {
       return (
         <>
+          <h1 class="header">guess the number</h1>
           <div className="App">
-            <h1 class="header">guess the number</h1>
-            <h3>The correct number was: {this.state.rightNumber}</h3>
-            <h3>{this.state.status}</h3>
-            {/* <label> Guess a number between 0-100: </label> */}
-            <input
-              disabled
-              type="text"
-              onInput={this.handleChange}
-              value={this.state.number}
-            ></input>
-            <button disabled onClick={this.handleGuess}>
-              Guess!
-            </button>
-            <p>History:</p>
-            {this.state.history.map((g, i) => (
-              <p>
-                Guess #{i + 1}: {g}
-              </p>
-            ))}
+            <div className="Game">
+              <h3>The correct number was: {this.state.rightNumber}</h3>
+              <h3>{this.state.status}</h3>
+              {/* <label> Guess a number between 0-100: </label> */}
+              <input
+                disabled
+                type="text"
+                onInput={this.handleChange}
+                value={this.state.number}
+              ></input>
+              <button disabled onClick={this.handleGuess}>
+                Guess!
+              </button>
+            </div>
+            <div className="History">
+              <p>History:</p>
+              {this.state.history.map((g, i) => (
+                <p>
+                  Guess #{i + 1}: {g}
+                </p>
+              ))}
+            </div>
           </div>
         </>
       );
